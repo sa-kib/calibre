@@ -79,6 +79,9 @@ class WeeklyLWN(BasicNewsRecipe):
             index_url = self.print_version('/free/bigpage')
         soup = self.index_to_soup(index_url)
         curr = soup.body
+        if curr.h1.string is not None:
+            self.title = unicode(curr.h1.string)
+            self.timefmt = ''
 
         articles = {}
         ans = []
