@@ -9,6 +9,7 @@ lwn.net
 from calibre.web.feeds.news import BasicNewsRecipe
 import re
 import sys
+import os
 
 
 class WeeklyLWN(BasicNewsRecipe):
@@ -76,7 +77,9 @@ class WeeklyLWN(BasicNewsRecipe):
         if self.username is not None and self.password is not None:
             index_url = self.print_version('/current/bigpage')
         else:
-            index_url = self.print_version('/free/bigpage')
+            issue = os.environ.get('OVERRIDE_LWN_ISSUE')
+            index_url = self.print_version("/Articles/%s/bigpage" % issue)
+            print >>sys.stderr, "overriden issue %s" % index_url
         soup = self.index_to_soup(index_url)
         curr = soup.body
         if curr.h1.string is not None:
