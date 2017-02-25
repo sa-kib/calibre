@@ -33,7 +33,7 @@ class WeeklyLWN(BasicNewsRecipe):
     publication_type = 'magazine'
 
     keep_only_tags = [dict(attrs={'class': ['PageHeadline', 'ArticleText']})]
-    remove_tags = [dict(name=['h2', 'form'])]
+    remove_tags = [dict(name=['h2', 'form']), dict(name='table', attrs={'class':'Form'})]
 
     preprocess_regexps = [
         # Remove the <hr> and "Log in to post comments"
